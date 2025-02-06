@@ -8,10 +8,17 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const { isLoaded, signIn, setActive } = useSignIn();
+  // const { session } = useSession();
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const router = useRouter();
+
+  // React.useEffect(() => {
+  //   if (session) {
+  //     router.push("/dashboard");
+  //   }
+  // }, [session, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,46 +87,32 @@ export default function LoginPage() {
             </h1>
             <div className="w-full flex-1">
               <div className="mx-auto max-w-xs">
-                {error && <p className="text-red-500 mb-5">{error}</p>}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <button
                     className="w-full font-semibold bg-white text-gray-900 py-3 border border-gray-300 rounded-lg hover:bg-gray-200 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                     onClick={() => handleOAuthLogin("Google", "Google")}
-                  >
+                    >
                     <Image
                       className="w-6 h-6 mr-2"
                       src="https://img.icons8.com/color/48/google-logo.png"
                       alt="Google Logo"
                       width={24}
                       height={24}
-                    />
+                      />
                     Google
                   </button>
                   <button
                     className="w-full font-semibold bg-white text-gray-900 py-3 border border-gray-300 rounded-lg hover:bg-gray-200 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                     onClick={() => handleOAuthLogin("github", "Github")}
-                  >
+                    >
                     <Image
                       className="w-6 h-6 mr-2"
                       src="https://img.icons8.com/color/48/github.png"
                       alt="Github Logo"
                       width={24}
                       height={24}
-                    />
+                      />
                     Github
-                  </button>
-                  <button
-                    className="w-full font-semibold bg-white text-gray-900 py-3 border border-gray-300 rounded-lg hover:bg-gray-200 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-                    onClick={() => handleOAuthLogin("facebook", "Facebook")}
-                  >
-                    <Image
-                      className="w-6 h-6 mr-2"
-                      src="https://img.icons8.com/color/48/facebook.png"
-                      alt="Facebook Logo"
-                      width={24}
-                      height={24}
-                    />
-                    Facebook
                   </button>
                 </div>
                 <div className="flex items-center my-5">
@@ -127,6 +120,7 @@ export default function LoginPage() {
                   <span className="mx-4 text-gray-500">or</span>
                   <hr className="flex-1 border-t border-gray-300" />
                 </div>
+                {error && <p className="text-red-500 text-center mb-5">{error}</p>}
                 <form onSubmit={handleSubmit}>
                   <input
                     className="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
